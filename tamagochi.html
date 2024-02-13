@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .levelClass {
+            display: flex;
+            margin: 20px;
+        }
+        .conditionsClass {
+            margin: 20px;
+            
+        }
+        .bee {
+            display: block;
+            width: 150px;
+            float: right;
+            margin-right: 100px;
+            border: dotted salmon 3px;
+            border-radius: 50px;
+            padding: 15px;
+        } 
+        .buttonsClass {
+            float: right;
+            margin-top: 10px;
+            margin-right: 120px;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <img class="bee" src="tamagochi1.png" alt="">
+
+    <div class="levelClass">
+        <div>Hunger level: </div>
+        <div id="hungerLevelDiv">100</div>
+    </div>
+    <div class="levelClass">
+        <div>Happy level: </div>
+        <div id="happyLevelDiv">100</div>
+    </div>
+    <div class="levelClass">
+        <div>Clean level: </div>
+        <div id="cleanLevelDiv">100</div>
+    </div>
+
+
+    <div class="conditionsClass">
+        <div style="font-size: 130%;" >Conditions:</div>
+        <div id="aliveDeadDiv">Alive</div>
+        <div id="happySadDiv">Happy</div>
+        <div id="cleanStinkyDiv">Clean</div>
+    </div>
+
+    <div class="buttonsClass">
+    <button onclick="feed()">Feed</button>
+    <button onclick="pet()">Pet</button>
+    <button onclick="brush()">Brush</button>
+</div>
+
+    <script>
+
+        let hunger = 100;
+        let happy = 100;
+        let clean = 100;
+
+        let hungerLevel = document.getElementById('hungerLevelDiv');
+        let happyLevel = document.getElementById('happyLevelDiv');
+        let cleanLevel = document.getElementById('cleanLevelDiv')
+
+        let aliveDead = document.getElementById('aliveDeadDiv');
+
+        const hungerCountdown = setInterval(aliveOrDead, 2000);
+        const happyCountdown = setInterval(happyOrSad, 6000);
+        const cleanCountdown = setInterval(cleanOrStinky, 3000);
+
+        function aliveOrDead() {
+            if (hunger <= 0) {
+                aliveDeadDiv.innerHTML = 'Dead';
+            }
+            else {
+                hunger -= 10;
+                hungerLevel.innerHTML = hunger;
+            }
+        }
+        function happyOrSad () {
+            if (happy <=0) {
+                happySadDiv.innerHTML = 'Sad'
+            }
+            else {
+                happy -=20;
+                happyLevel.innerHTML = happy;
+            }
+        }
+        function cleanOrStinky () {
+            if(clean <=0) {
+                cleanStinkyDiv.innerHTML= 'Stinky'
+            }
+            else {
+                clean -=5;
+                cleanLevel.innerHTML = clean;
+            }
+        }
+    
+
+        function feed() {
+            hunger = hunger + 10;
+            hungerLevel.innerHTML = hunger;
+        }
+        function pet() {
+            happy = happy + 20;
+            happyLevel.innerHTML = happy;
+        }
+        function brush() {
+            clean = clean + 5;
+            cleanLevel.innerHTML = clean;
+            
+        }
+        
+
+
+    </script>
+
+</body>
+
+</html>

@@ -6,61 +6,115 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        .container {
+            display: grid;
+            grid-template-columns: auto, auto;
+            grid-template-rows: auto;
+            grid-template-areas: 
+            
+            'stats animal';
+        }
         .levelClass {
             display: flex;
+            grid-area: stats;
             margin: 20px;
         }
+
         .conditionsClass {
             margin: 20px;
-            
+            grid-area: stats;
+
         }
-        .bee {
+        .btnsAndImg {
+            grid-area: animal;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+
+        }
+        .imgContainer {
+            width: 200px;
+            background-image: url(tamagochi1.png);
+            background-size: contain;
+            background-repeat: no-repeat;
+            height: auto;
+        }
+
+    
+
+        #bee {
             display: block;
+            
             width: 150px;
+            left: 350px;
             float: right;
+            margin-top: 20px;
             margin-right: 100px;
             border: dotted salmon 3px;
             border-radius: 50px;
             padding: 15px;
-        } 
-        .buttonsClass {
-            float: right;
-            margin-top: 10px;
-            margin-right: 120px;
         }
-        
+
+        #dead {
+            
+            opacity: 100;
+            left: 384px;
+            margin-top: 70px;
+            width: 100px;
+        }
+
+        #teardrops {
+            
+            opacity: 100;
+            left: 450px;
+            margin-top: 95px;
+            width: 20px;
+
+        }
+
+        #poop {
+            
+            opacity: 100;
+            left: 380px;
+            margin-top: -15px;
+            width: 90px;
+        }
+
+        .buttonsClass {
+            
+        }
     </style>
 </head>
 
 <body>
-    <img class="bee" src="tamagochi1.png" alt="">
-
-    <div class="levelClass">
-        <div>Hunger level: </div>
-        <div id="hungerLevelDiv">100</div>
+    <div class="container">
+    <div class="btnsAndImg">
+    <div class="imgContainer">
+        
+        <img id="dead" src="dead.png" alt="">
+        <img id="teardrops" src="teardrops.png" alt="">
+        <img id="poop" src="poop.png" alt="">
     </div>
-    <div class="levelClass">
-        <div>Happy level: </div>
-        <div id="happyLevelDiv">100</div>
+    <div class="buttonsClass">
+        <button onclick="feed()">Feed</button>
+        <button onclick="pet()">Pet</button>
+        <button onclick="brush()">Brush</button>
     </div>
-    <div class="levelClass">
-        <div>Clean level: </div>
-        <div id="cleanLevelDiv">100</div>
-    </div>
+</div>
+<div>
+    <div id="levelDiv"></div>
+    <div id="buttonsDiv"></div>
 
 
     <div class="conditionsClass">
-        <div style="font-size: 130%;" >Conditions:</div>
+        <div style="font-size: 130%;">Conditions:</div>
         <div id="aliveDeadDiv">Alive</div>
         <div id="happySadDiv">Happy</div>
         <div id="cleanStinkyDiv">Clean</div>
     </div>
-
-    <div class="buttonsClass">
-    <button onclick="feed()">Feed</button>
-    <button onclick="pet()">Pet</button>
-    <button onclick="brush()">Brush</button>
 </div>
+</div>
+    
 
     <script>
 
@@ -68,44 +122,70 @@
         let happy = 100;
         let clean = 100;
 
-        let hungerLevel = document.getElementById('hungerLevelDiv');
-        let happyLevel = document.getElementById('happyLevelDiv');
-        let cleanLevel = document.getElementById('cleanLevelDiv')
+        let levels = document.getElementById('levelDiv');
+
+        let dead = document.getElementById('dead');
+        let teardrops = document.getElementById('teardrops');
+        let poop = document.getElementById('poop');
 
         let aliveDead = document.getElementById('aliveDeadDiv');
 
-        const hungerCountdown = setInterval(aliveOrDead, 2000);
-        const happyCountdown = setInterval(happyOrSad, 6000);
-        const cleanCountdown = setInterval(cleanOrStinky, 3000);
+        const hungerCountdown = setInterval(aliveOrDead, 1000);
+        const happyCountdown = setInterval(happyOrSad, 4000);
+        const cleanCountdown = setInterval(cleanOrStinky, 2000);
+
+        levelView();
+        function levelView() { levels.innerHTML= /*HTML*/`
+            <div class="levelClass">
+            <div>Hunger level: ${hunger} </div>
+        
+            </div>
+            <div class="levelClass">
+            <div>Happy level: ${happy}</div>
+        
+            </div>
+            <div class="levelClass">
+            <div>Clean level: ${clean}</div>
+        
+            </div> `
+        }
 
         function aliveOrDead() {
             if (hunger <= 0) {
                 aliveDeadDiv.innerHTML = 'Dead';
+                dead.style.opacity = 80;
             }
             else {
                 hunger -= 10;
-                hungerLevel.innerHTML = hunger;
+               // hungerLevel.innerHTML = hunger;
+               
             }
+            levelView();
+
         }
-        function happyOrSad () {
-            if (happy <=0) {
+        function happyOrSad() {
+            if (happy <= 0) {
                 happySadDiv.innerHTML = 'Sad'
+                teardrops.style.opacity = 80;
             }
             else {
-                happy -=20;
-                happyLevel.innerHTML = happy;
+                happy -= 20;
+                //happyLevel.innerHTML = happy;
             }
+            levelView();
         }
-        function cleanOrStinky () {
-            if(clean <=0) {
-                cleanStinkyDiv.innerHTML= 'Stinky'
+        function cleanOrStinky() {
+            if (clean <= 0) {
+                cleanStinkyDiv.innerHTML = 'Stinky'
+                poop.style.opacity = 80;
             }
             else {
-                clean -=5;
-                cleanLevel.innerHTML = clean;
+                clean -= 5;
+                //cleanLevel.innerHTML = clean;
             }
+            levelView();
         }
-    
+
 
         function feed() {
             hunger = hunger + 10;
@@ -118,9 +198,9 @@
         function brush() {
             clean = clean + 5;
             cleanLevel.innerHTML = clean;
-            
+
         }
-        
+
 
 
     </script>

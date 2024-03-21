@@ -57,7 +57,7 @@
 
         #dead {
             
-            opacity: 100;
+            opacity: 0;
             left: 384px;
             margin-top: 70px;
             width: 100px;
@@ -65,7 +65,7 @@
 
         #teardrops {
             
-            opacity: 100;
+            opacity: 0;
             left: 450px;
             margin-top: 95px;
             width: 20px;
@@ -74,7 +74,7 @@
 
         #poop {
             
-            opacity: 100;
+            opacity: 0;
             left: 380px;
             margin-top: -15px;
             width: 90px;
@@ -118,7 +118,7 @@
 
     <script>
 
-        let hunger = 100;
+        let hunger = 'Kåre';
         let happy = 100;
         let clean = 100;
 
@@ -130,7 +130,7 @@
 
         let aliveDead = document.getElementById('aliveDeadDiv');
 
-        const hungerCountdown = setInterval(aliveOrDead, 1000);
+        
         const happyCountdown = setInterval(happyOrSad, 4000);
         const cleanCountdown = setInterval(cleanOrStinky, 2000);
 
